@@ -60,3 +60,7 @@ Thumbs.db
 # Docker build logs / temporary artifacts
 *.log
 Dockerfile
+
+# Internal files
+Report/Wikimedia ID Retention Analysis.ipynb - Colab.pdf
+Report/app.pdf
