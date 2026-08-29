@@ -41,8 +41,8 @@ Participation analysis across 369 unique editors highlights a significant varian
 | **New User** | 159 | **6** | 165 | **3.6%** |
 | **Total** | **316** | **53** | **369** | **14.4%** |
 
-![Retention Level per Cohort](assets/images/retention_by_cohort_mpl.png)
-![Repeat Participant Composition](assets/images/repeat_participant_composition_mpl.png)
+![Retention Level per Cohort](assets/images/retention_by_cohort.png)
+![Repeat Participant Composition](assets/images/repeat_participant_composition.png)
 
 * Out of 165 new users, only 3.6% (6 users) returned for subsequent events, highlighting a steep drop-off immediately following initial training sessions.
 * The vast majority of retained participants (88.7% or 47 users) held active accounts prior to the events, demonstrating that repeat engagement relies heavily on pre-existing contributors.
