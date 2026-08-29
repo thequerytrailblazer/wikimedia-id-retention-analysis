@@ -35,3 +35,28 @@ Thumbs.db
 .idea/
 *.swp
 *.swo
+
+# Python bytecode & cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Streamlit local configuration & state
+.streamlit/
+run.sh
+
+# Virtual environments
+venv/
+env/
+.env/
+
+# OS / IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Docker build logs / temporary artifacts
+*.log
+Dockerfile
