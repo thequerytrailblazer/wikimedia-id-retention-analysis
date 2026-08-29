@@ -8,6 +8,7 @@ import plotly.express as px
 # ------------------------------------------------------------------------------
 st.set_page_config(
     page_title="Wikimedia Indonesia - Retention Analytics",
+    page_icon="https://upload.wikimedia.org/wikipedia/commons/8/81/Wikimedia-logo.svg",
     layout="wide"
 )
 
@@ -58,7 +59,19 @@ if selected_cohort != "All":
 # ------------------------------------------------------------------------------
 # 4. HEADER & KPI METRICS
 # ------------------------------------------------------------------------------
-st.title("Wikimedia Indonesia Program Analytics (2025–2026)")
+# Header dengan Logo di Samping Judul
+logo_url = "https://upload.wikimedia.org/wikipedia/commons/9/96/Ikon_Data_dan_Teknologi_WMID_-_Warna.svg"
+
+st.markdown(
+    f"""
+    <h1 style="display: flex; align-items: center; gap: 12px; margin-bottom: 0px;">
+        <img src="{logo_url}" width="42" style="vertical-align: middle;">
+        <span>Wikimedia Indonesia Program Analytics (2025–2026)</span>
+    </h1>
+    """,
+    unsafe_allow_html=True
+)
+
 st.markdown("Retention analytics dashboard and participant dynamics for Wikidata training sessions.")
 
 st.divider()
