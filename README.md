@@ -1,75 +1,95 @@
 # Wikimedia Indonesia Data & Technology Program Analytics (2025–2026)
 
-## Overview
-This repository contains data analytics pipelines, data cleaning scripts, and post-event retention tracking models for the Data and Technology Team of Wikimedia Indonesia. The primary goal is to evaluate training outcomes, editor engagement, and long-term retention, with a specific focus on contributions to the [Wikidata](https://www.wikidata.org) project.
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://hisyam-wikimedia-id-retention-analysis.streamlit.app/)
 
-The dataset covers campaign activities from 2025 through 2026, capturing cohort performance across regional workshops, university training programs (Wikilatih), and edit-a-thons (Geodatathon / Datathon).
+## Overview
+This repository contains data analytics pipelines, data cleaning scripts, and post-event retention tracking models for the Data and Technology Team of Wikimedia Indonesia[cite: 1]. The primary goal is to evaluate training outcomes, editor engagement, long-term retention, and content contributions across Wikidata activities[cite: 1].
+
+The dataset covers campaign activities from 2025 through 2026, capturing cohort performance and content productivity across regional workshops, university training programs (**Wikilatih**), edit-a-thons (**Geodatathon / Datathon**), regional community gatherings (**Kopdar**), and structured internships (**Pemagangan**)[cite: 1].
+
+---
+
+## Interactive Dashboard
+Access the live Streamlit interactive dashboard here:
+👉 **[Wikimedia Indonesia Retention & Content Analytics Dashboard](https://hisyam-wikimedia-id-retention-analysis.streamlit.app/)**
 
 ---
 
 ## Data Source & Attribution
 All data in this repository is sourced publicly from the Wikimedia Outreach Dashboard:
-* Campaign Overview: [Wikimedia Indonesia Data and Technology Campaign 2025](https://outreachdashboard.wmflabs.org/campaigns/data_dan_teknologi_wikimedia_indonesia_2025/overview)
-* Target Project: [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page)
+* **Campaign Overview:** [Wikimedia Indonesia Data and Technology Campaign 2025](https://outreachdashboard.wmflabs.org/campaigns/data_dan_teknologi_wikimedia_indonesia_2025/overview)
+* **Target Project:** [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page)
 
 ---
 
 ## Campaign Summary Statistics
 Key metrics extracted from the Outreach Dashboard datasets:
-* Total Training Events: 33 activities
-* Total Student Enrollments: 446 enrollments (369 unique editors post-cleaning)
-* Total Revisions: Over 370,000 edits
-* Total Wikidata Items Created: Over 7,600 items
+* **Total Training Events:** 33 activities[cite: 1]
+* **Total Enrollments:** 446 enrollments (369 unique editors post-cleaning)[cite: 1]
+* **Total Revisions:** Over 370,000 edits[cite: 1]
+* **Total Wikidata Items Created:** Over 7,300 items[cite: 1, 5]
+* **Total Statements/Claims Created:** Over 114,000 claims[cite: 5]
+* **Total Labels Added:** Over 143,000 labels[cite: 5]
 
 ---
 
 ## Methodology & Retention Framework
-1. Data Cleaning & Standardization: Resolving string/numeric data type mismatches, normalizing usernames, and mapping local wiki IDs against global CentralAuth identifiers.
-2. Cohort Segmentation: Isolating New Users (account age <= 7 days at registration) from Existing Users to eliminate pre-existing activity bias when evaluating training effectiveness.
-3. Participation & Retention Tracking: Measuring repeat participation levels across training sessions to calculate return rates and longitudinal contributor engagement.
+1. **Data Cleaning & Deduplication:** Resolving string/numeric mismatches, standardizing datetime fields, and filtering duplicate backup event logs (e.g., `- Cadang` courses)[cite: 1].
+2. **Event Typology Derivation:** Categorizing events into **Wikilatih** (training), **Datathon** (competitions), **Kopdar** (gatherings), and **Pemagangan** (internships) via title and slug pattern matching[cite: 1].
+3. **Cohort Locking:** Locking participant user cohort status (`New User` $\le 7$ days account age vs. `Existing User` $> 7$ days) based on their relative account age at their chronological **first attended event**[cite: 1, 2].
+4. **Repeat Return Analysis:** Tracking multi-event participation rates to calculate post-onboarding return rates per entry format[cite: 1].
+5. **Normalized Content Impact Analysis:** Evaluating editing productivity by calculating claims, labels, and items created normalized per editor across event formats[cite: 1, 5].
 
 ---
 
 ## Key Findings & Insight Analysis
 
-### Retention Overview
-Participation analysis across 369 unique editors highlights a significant variance in return rates between new and established account holders:
+### 1. Cohort Composition & Retention Overview
+Participation analysis across 369 unique editors reveals distinct operational profiles across event typologies[cite: 1]:
 
-| Cohort | Single Event Participant | Repeat Participant (>1 Event) | Total Unique Users | Retention Rate |
+| Event Type | Existing User Share (%) | New User Share (%) | First-Timer Repeat Rate (%) | Primary Operational Role |
 | :--- | :--- | :--- | :--- | :--- |
-| **Existing User** | 157 | **47** | 204 | **23.0%** |
-| **New User** | 159 | **6** | 165 | **3.6%** |
-| **Total** | **316** | **53** | **369** | **14.4%** |
+| **Wikilatih** | 37.25% | **62.75%** | **2.60%** | Top-of-Funnel Acquisition / Onboarding |
+| **Datathon** | **91.40%** | 8.60% | 33.33% | High-Volume Data Production Hub |
+| **Kopdar** | **92.31%** | 7.69% | 0.00% | Community Cohesion & Networking |
+| **Pemagangan** | 50.00% | 50.00% | 100.00% | Sustained Skill Mentorship |
 
-![Retention Level per Cohort](assets/images/retention_by_cohort.png)
-![Repeat Participant Composition](assets/images/repeat_participant_composition.png)
+![Cohort Composition Breakdown](assets/images/cohort_composition_breakdown.png)
+![Returner Repeat Rate](assets/images/repeat_rate_by_entry_channel.png)
 
-* Out of 165 new users, only 3.6% (6 users) returned for subsequent events, highlighting a steep drop-off immediately following initial training sessions.
-* The vast majority of retained participants (88.7% or 47 users) held active accounts prior to the events, demonstrating that repeat engagement relies heavily on pre-existing contributors.
-
----
-
-### Analytical Context & Limitations
-* Contributing to Wikimedia projects is inherently a voluntary hobby. Encouraging individuals to regularly dedicate personal time to open data and open knowledge presents a complex retention challenge.
-* Unlike Wikipedia or Wikimedia Commons where edits yield immediate visual feedback, Wikidata functions as a graph-based knowledge base. Because its data is primarily consumed programmatically through SPARQL, SQL, linked data, or Web 3.0, non-technical beginners often struggle to observe the tangible impact of their contributions right away.
-* The New User cohort strictly captures account creation recency (<= 7 days from event start date). Once an editor attends a second event, they are categorized under Existing User regardless of their overall experience level. While operationally effective for data modeling, qualitative onboarding typically spans several months.
+* **Top-of-Funnel Bottleneck:** **Wikilatih** serves as the primary gateway for new contributor acquisition (62.75% New Users)[cite: 1]. However, first-time participants joining via Wikilatih experience a steep drop-off, yielding a post-onboarding repeat return rate of only **2.60%** (4 out of 154 new users returned)[cite: 1].
+* **Community-Driven Events:** **Datathons** (91.40% Existing Users) and **Kopdar** sessions (92.31% Existing Users) rely almost entirely on pre-established community members[cite: 1].
 
 ---
 
-### Strategic Recommendations
-* Shift outreach targets toward academics, data practitioners, and domain experts in fields such as GLAM, botany, or zoology. Focusing on thematic data integration aligns Wikidata's complexity with audiences who already possess relevant technical skills and domain interests.
-* Recognize the trade-offs of a targeted approach. While user retention numbers may remain modest due to the niche nature of the work, project success can instead be measured by data utility, evaluating how contributed data is actively queried, visualized, and integrated into external applications or research.
-* For general beginner events, bridge the immediate feedback gap by integrating simple query visualizations or practical application demos into training sessions, helping new users directly visualize the real-world utility of their contributions.
+### 2. Content Contribution Profiles (Productivity per Editor)
+A normalized evaluation of content outputs per editor illustrates the editing density across event formats[cite: 1, 5]:
+
+| Event Type | Total Events | Total Editors | Claims / Editor | Items / Editor | Labels / Editor | Output Characteristic |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Datathon** | 4 | 93 | **1,002.22** | **45.83** | **1,410.74** | High-density mass data input[cite: 1, 5] |
+| **Pemagangan** | 2 | 2 | 73.00 | 8.00 | 23.50 | Moderate structured output[cite: 1, 5] |
+| **Kopdar** | 8 | 92 | 14.87 | 1.18 | 4.08 | Light editing & social engagement[cite: 1, 5] |
+| **Wikilatih** | 15 | 233 | 9.08 | 0.86 | 1.88 | Introductory onboarding edits[cite: 1, 5] |
+
+![Normalized Content Output](assets/images/content_output_per_editor.png)
+
+* **Productivity Hubs:** **Datathons** function as high-output content engines, averaging **>1,000 claims** and **>1,400 labels** per editor[cite: 1, 5].
+* **Learning Curve Reality:** Introductory workshops naturally yield lower edit volume per user as beginners navigate Wikidata's graph structure and ontology requirements[cite: 1, 2].
 
 ---
 
-## License
-All data and content in this repository are licensed under the [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/) license.
+## Strategic Recommendations
+1. **Structured Post-Wikilatih Activation Pathways:** Implement automated follow-up communication within 14 days of a Wikilatih workshop to connect new editors with local Kopdar gatherings or beginner-friendly Datathon tracks before drop-off occurs[cite: 1].
+2. **Targeted Audience Acquisition:** Focus specialized Wikilatih outreach toward academic institutions, GLAM partners, and domain-specific research groups whose existing technical background reduces onboarding friction[cite: 1, 2].
+3. **In-Session Feedback Loops:** Integrate live query visualizations (such as SPARQL query results or dynamic Wikidata dashboards) into introductory training sessions to provide first-time contributors with immediate visual impact for their edits[cite: 1, 2].
 
-Under this license, you are free to:
-* Share: Copy and redistribute the material in any medium or format.
-* Adapt: Remix, transform, and build upon the material for any purpose, even commercially.
+---
 
-Under the following terms:
-* Attribution: You must give appropriate credit to Wikimedia Indonesia and the Wikimedia Outreach Dashboard.
-* ShareAlike: If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+## License & Attribution
+
+### Code & Visualizations
+All analysis scripts, Python code, and Streamlit dashboard files are licensed under the **[MIT License](https://opensource.org/licenses/MIT)**.
+
+### Data & Documentation
+All data summaries, documentation, and graphical charts are licensed under the **[Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/)** license[cite: 1, 2].
