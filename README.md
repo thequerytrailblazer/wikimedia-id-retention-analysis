@@ -17,8 +17,8 @@ Access the live Streamlit interactive dashboard here:
 
 ## Data Source & Attribution
 All data in this repository is sourced publicly from the Wikimedia Outreach Dashboard:
-* **Campaign Overview:** [Wikimedia Indonesia Data and Technology Campaign 2025](https://outreachdashboard.wmflabs.org/campaigns/data_dan_teknologi_wikimedia_indonesia_2025/overview)
-* **Target Project:** [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page)
+* **Campaign Overview:** [Wikimedia Indonesia Data and Technology Campaign 2025](https://outreachdashboard.wmflabs.org/campaigns/data_dan_teknologi_wikimedia_indonesia_2025/overview)[cite: 1]
+* **Target Project:** [Wikidata](https://www.wikidata.org/wiki/Wikidata:Main_Page)[cite: 1]
 
 ---
 
@@ -36,7 +36,7 @@ Key metrics extracted from the Outreach Dashboard datasets:
 ## Methodology & Retention Framework
 1. **Data Cleaning & Deduplication:** Resolving string/numeric mismatches, standardizing datetime fields, and filtering duplicate backup event logs (e.g., `- Cadang` courses)[cite: 1].
 2. **Event Typology Derivation:** Categorizing events into **Wikilatih** (training), **Datathon** (competitions), **Kopdar** (gatherings), and **Pemagangan** (internships) via title and slug pattern matching[cite: 1].
-3. **Cohort Locking:** Locking participant user cohort status (`New User` $\le 7$ days account age vs. `Existing User` $> 7$ days) based on their relative account age at their chronological **first attended event**[cite: 1, 2].
+3. **Cohort Locking:** Locking participant user cohort status (`New User` = 7 days or less account age vs. `Existing User` > 7 days) based on their relative account age at their chronological **first attended event**[cite: 1, 2].
 4. **Repeat Return Analysis:** Tracking multi-event participation rates to calculate post-onboarding return rates per entry format[cite: 1].
 5. **Normalized Content Impact Analysis:** Evaluating editing productivity by calculating claims, labels, and items created normalized per editor across event formats[cite: 1, 5].
 
@@ -67,14 +67,14 @@ A normalized evaluation of content outputs per editor illustrates the editing de
 
 | Event Type | Total Events | Total Editors | Claims / Editor | Items / Editor | Labels / Editor | Output Characteristic |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Datathon** | 4 | 93 | **1,002.22** | **45.83** | **1,410.74** | High-density mass data input[cite: 1, 5] |
-| **Pemagangan** | 2 | 2 | 73.00 | 8.00 | 23.50 | Moderate structured output[cite: 1, 5] |
-| **Kopdar** | 8 | 92 | 14.87 | 1.18 | 4.08 | Light editing & social engagement[cite: 1, 5] |
-| **Wikilatih** | 15 | 233 | 9.08 | 0.86 | 1.88 | Introductory onboarding edits[cite: 1, 5] |
+| **Datathon** | 4 | 93 | **1,002.22** | **45.83** | **1,410.74** | High-density mass data input |
+| **Pemagangan** | 2 | 2 | 73.00 | 8.00 | 23.50 | Moderate structured output |
+| **Kopdar** | 8 | 92 | 14.87 | 1.18 | 4.08 | Light editing & social engagement |
+| **Wikilatih** | 15 | 233 | 9.08 | 0.86 | 1.88 | Introductory onboarding edits |
 
 ![Normalized Content Output](assets/images/content_output_per_editor.png)
 
-* **Productivity Hubs:** **Datathons** function as high-output content engines, averaging **>1,000 claims** and **>1,400 labels** per editor[cite: 1, 5].
+* **Productivity Hubs:** **Datathons** function as high-output content engines, averaging **>1,002 claims** and **>1,410 labels** per editor[cite: 1, 5].
 * **Learning Curve Reality:** Introductory workshops naturally yield lower edit volume per user as beginners navigate Wikidata's graph structure and ontology requirements[cite: 1, 2].
 
 ---
@@ -89,7 +89,7 @@ A normalized evaluation of content outputs per editor illustrates the editing de
 ## License & Attribution
 
 ### Code & Visualizations
-All analysis scripts, Python code, and Streamlit dashboard files are licensed under the **[MIT License](https://opensource.org/licenses/MIT)**.
+All analysis scripts, Python code, and Streamlit dashboard files are licensed under the **[MIT License](https://opensource.org/licenses/MIT)**[cite: 2].
 
 ### Data & Documentation
-All data summaries, documentation, and graphical charts are licensed under the **[Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/)** license[cite: 1, 2].
+All data summaries, documentation, and graphical charts are licensed under the **[Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/)** license[cite: 2].
