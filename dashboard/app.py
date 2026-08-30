@@ -54,7 +54,7 @@ try:
         max_value=max_date
     )
     
-    # Handle partial user input interaction (tuple must contain exactly start and end date)
+    # Handle partial user input interaction
     if isinstance(date_selection, (tuple, list)) and len(date_selection) == 2:
         start_date_input, end_date_input = date_selection
     else:
@@ -146,7 +146,12 @@ with st.expander("Dashboard Documentation & Terminology Guide"):
     * **Pemagangan:** Structured internships for sustained skill development.
     """)
 
-tab1, tab2, tab3 = st.tabs(["Cohort Retention Overview", "Event Typology & Retention", "Content Productivity per Editor"])
+tab1, tab2, tab3, tab4 = st.tabs([
+    "Cohort Retention Overview", 
+    "Time Series Trend", 
+    "Event Typology & Retention", 
+    "Content Productivity per Editor"
+])
 
 # TAB 1: RETENTION OVERVIEW
 with tab1:
@@ -196,8 +201,29 @@ with tab1:
     except Exception as e:
         st.error("Error generating Cohort Retention Overview charts.")
 
-# TAB 2: EVENT TYPOLOGY & RETENTION
+# TAB 2: TIME SERIES TREND (RETRIEVED FROM NOTEBOOK)
 with tab2:
+    try:
+        df_timeseries = filtered_df.groupby(['start_date', 'user_cohort']).size().reset_index(name='participant_count')
+
+        fig_line = px.line(
+            df_timeseries,
+            x='start_date',
+            y='participant_count',
+            color='user_cohort',
+            markers=True,
+            title='Participation Trend Over Time (New Users vs Existing Users)',
+            labels={'start_date': 'Event Start Date', 'participant_count': 'Participant Count', 'user_cohort': 'User Cohort'},
+            color_discrete_map={'Existing User': '#4C72B0', 'New User': '#E15759'}
+        )
+        fig_line.update_traces(line=dict(width=2.5), marker=dict(size=7))
+        fig_line.update_layout(template='plotly_white', hovermode='x unified')
+        st.plotly_chart(fig_line, use_container_width=True)
+    except Exception as e:
+        st.error("Error rendering Participation Trend Over Time chart.")
+
+# TAB 3: EVENT TYPOLOGY & RETENTION
+with tab3:
     col_type1, col_type2 = st.columns(2)
     
     with col_type1:
@@ -254,8 +280,8 @@ with tab2:
         except Exception as e:
             st.error("Error rendering Repeat Rate chart.")
 
-# TAB 3: CONTENT PRODUCTIVITY PER EDITOR
-with tab3:
+# TAB 4: CONTENT PRODUCTIVITY PER EDITOR
+with tab4:
     try:
         fig_content = px.bar(
             df_content,
